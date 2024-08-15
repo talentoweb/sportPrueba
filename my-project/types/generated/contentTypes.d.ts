@@ -788,6 +788,161 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiClubClub extends Schema.CollectionType {
+  collectionName: 'clubs';
+  info: {
+    singularName: 'club';
+    pluralName: 'clubs';
+    displayName: 'club';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    clubName: Attribute.String;
+    foundation_year: Attribute.Integer;
+    stadium: Attribute.String;
+    city: Attribute.Enumeration<['buenaventura', 'cali']>;
+    country: Attribute.Enumeration<['colombia']>;
+    manager: Attribute.String;
+    contact_email: Attribute.Email;
+    contact_phone: Attribute.String;
+    clubProfile: Attribute.Media<'images'>;
+    slug: Attribute.UID<'api::club.club', 'clubName'>;
+    players: Attribute.Relation<
+      'api::club.club',
+      'oneToMany',
+      'api::player.player'
+    >;
+    galleryClub: Attribute.Media<'images', true>;
+    clubDescription: Attribute.Text &
+      Attribute.DefaultTo<'Aqu\u00ED va la descripcion del club.'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::club.club', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::club.club', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPlayerPlayer extends Schema.CollectionType {
+  collectionName: 'players';
+  info: {
+    singularName: 'player';
+    pluralName: 'players';
+    displayName: 'player';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    firstName: Attribute.String & Attribute.Required;
+    lastName: Attribute.String & Attribute.Required;
+    imagenPlayerLink: Attribute.Media<'images'>;
+    description: Attribute.Text &
+      Attribute.DefaultTo<'Aqui va la descripcion del futbolista'>;
+    weight: Attribute.Integer & Attribute.DefaultTo<120>;
+    height: Attribute.Integer & Attribute.DefaultTo<120>;
+    position: Attribute.Enumeration<
+      [
+        'Portero  ',
+        'Defensa Central  ',
+        'Lateral Derecho  ',
+        'Lateral Izquierdo  ',
+        'Libero  ',
+        'Pivote  ',
+        'Mediocentro Defensivo  ',
+        'Mediocentro  ',
+        'Mediocentro Ofensivo  ',
+        'Extremo Derecho  ',
+        'Extremo Izquierdo  ',
+        'Delantero Centro  ',
+        'Segundo Delantero'
+      ]
+    > &
+      Attribute.DefaultTo<'Delantero Centro  '>;
+    dominantFoot: Attribute.Enumeration<['derecho', 'izquierdo', 'diestro']> &
+      Attribute.DefaultTo<'derecho'>;
+    birthDate: Attribute.Date;
+    birthCountry: Attribute.Enumeration<['colombia', 'venezuela']> &
+      Attribute.DefaultTo<'colombia'>;
+    birthCity: Attribute.String & Attribute.DefaultTo<'Buenaventura'>;
+    youtubeVideo: Attribute.String;
+    email: Attribute.Email & Attribute.DefaultTo<'example@example.com'>;
+    slug: Attribute.UID<'api::player.player', 'firstName'>;
+    phone: Attribute.String & Attribute.DefaultTo<'316666666'>;
+    clubActual: Attribute.Relation<
+      'api::player.player',
+      'manyToOne',
+      'api::club.club'
+    >;
+    galleryPlayer: Attribute.Media<'images', true>;
+    represent: Attribute.Relation<
+      'api::player.player',
+      'manyToOne',
+      'api::represent.represent'
+    >;
+    imagenPlayerProfileLink: Attribute.String &
+      Attribute.DefaultTo<'https://res.cloudinary.com/dexprztxc/image/upload/v1723511910/profile_5abbd9ba35.png'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::player.player',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::player.player',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRepresentRepresent extends Schema.CollectionType {
+  collectionName: 'represents';
+  info: {
+    singularName: 'represent';
+    pluralName: 'represents';
+    displayName: 'represent';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    representName: Attribute.String;
+    phoneRepresent: Attribute.String;
+    slugRepresent: Attribute.UID<'api::represent.represent', 'representName'>;
+    players: Attribute.Relation<
+      'api::represent.represent',
+      'oneToMany',
+      'api::player.player'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::represent.represent',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::represent.represent',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -806,6 +961,9 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::club.club': ApiClubClub;
+      'api::player.player': ApiPlayerPlayer;
+      'api::represent.represent': ApiRepresentRepresent;
     }
   }
 }
