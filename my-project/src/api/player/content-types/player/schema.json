@@ -1,0 +1,126 @@
+{
+  "kind": "collectionType",
+  "collectionName": "players",
+  "info": {
+    "singularName": "player",
+    "pluralName": "players",
+    "displayName": "player",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "imagenPlayerLink": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "description": {
+      "type": "text",
+      "default": "Aqui va la descripcion del futbolista"
+    },
+    "weight": {
+      "type": "integer",
+      "default": 120
+    },
+    "height": {
+      "type": "integer",
+      "default": 120
+    },
+    "position": {
+      "type": "enumeration",
+      "enum": [
+        "Portero  ",
+        "Defensa Central  ",
+        "Lateral Derecho  ",
+        "Lateral Izquierdo  ",
+        "Libero  ",
+        "Pivote  ",
+        "Mediocentro Defensivo  ",
+        "Mediocentro  ",
+        "Mediocentro Ofensivo  ",
+        "Extremo Derecho  ",
+        "Extremo Izquierdo  ",
+        "Delantero Centro  ",
+        "Segundo Delantero"
+      ],
+      "default": "Delantero Centro  "
+    },
+    "dominantFoot": {
+      "type": "enumeration",
+      "enum": [
+        "derecho",
+        "izquierdo",
+        "diestro"
+      ],
+      "default": "derecho"
+    },
+    "birthDate": {
+      "type": "date"
+    },
+    "birthCountry": {
+      "type": "enumeration",
+      "enum": [
+        "colombia",
+        "venezuela"
+      ],
+      "default": "colombia"
+    },
+    "birthCity": {
+      "type": "string",
+      "default": "Buenaventura"
+    },
+    "youtubeVideo": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email",
+      "default": "example@example.com"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "firstName"
+    },
+    "phone": {
+      "type": "string",
+      "default": "316666666"
+    },
+    "clubActual": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::club.club",
+      "inversedBy": "players"
+    },
+    "galleryPlayer": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "represent": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::represent.represent",
+      "inversedBy": "players"
+    },
+    "imagenPlayerProfileLink": {
+      "type": "string",
+      "default": "https://res.cloudinary.com/dexprztxc/image/upload/v1723511910/profile_5abbd9ba35.png"
+    }
+  }
+}

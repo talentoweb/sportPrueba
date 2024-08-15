@@ -1,0 +1,77 @@
+{
+  "kind": "collectionType",
+  "collectionName": "clubs",
+  "info": {
+    "singularName": "club",
+    "pluralName": "clubs",
+    "displayName": "club",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "clubName": {
+      "type": "string"
+    },
+    "foundation_year": {
+      "type": "integer"
+    },
+    "stadium": {
+      "type": "string"
+    },
+    "city": {
+      "type": "enumeration",
+      "enum": [
+        "buenaventura",
+        "cali"
+      ]
+    },
+    "country": {
+      "type": "enumeration",
+      "enum": [
+        "colombia"
+      ]
+    },
+    "manager": {
+      "type": "string"
+    },
+    "contact_email": {
+      "type": "email"
+    },
+    "contact_phone": {
+      "type": "string"
+    },
+    "clubProfile": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "clubName"
+    },
+    "players": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::player.player",
+      "mappedBy": "clubActual"
+    },
+    "galleryClub": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "clubDescription": {
+      "type": "text",
+      "default": "Aquí va la descripcion del club."
+    }
+  }
+}

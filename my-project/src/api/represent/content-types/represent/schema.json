@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "represents",
+  "info": {
+    "singularName": "represent",
+    "pluralName": "represents",
+    "displayName": "represent"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "representName": {
+      "type": "string"
+    },
+    "phoneRepresent": {
+      "type": "string"
+    },
+    "slugRepresent": {
+      "type": "uid",
+      "targetField": "representName"
+    },
+    "players": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::player.player",
+      "mappedBy": "represent"
+    }
+  }
+}
